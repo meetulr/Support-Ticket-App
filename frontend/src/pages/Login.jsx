@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { FaSignInAlt} from "react-icons/fa";
+import { useState, useContext } from "react";
+import { FaSignInAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
-
+import axios from "axios";
+import UserContext from "../contexts/user/userContext";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -10,6 +13,10 @@ function Login() {
     });
 
     const { email, password } = formData;
+
+    const { setUser } = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData((prevState) => (
@@ -20,8 +27,23 @@ function Login() {
         ))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const userData = {
+            email,
+            password
+        }
+
+        try {
+            const res = await axios.post("/api/users/login", userData);
+            setUser(res.data);
+            navigate("/");
+
+        } catch (error) {
+            const message = error.response.data.message;
+            toast.error(message);
+        }
     }
 
     return (

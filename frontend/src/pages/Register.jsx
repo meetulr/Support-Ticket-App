@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaUser } from "react-icons/fa";
-import {toast} from "react-toastify";
-
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../contexts/user/userContext";
+import Spinner from "../components/Spinner";
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -13,6 +16,10 @@ function Register() {
 
     const { name, email, password, password2 } = formData;
 
+    const { setUser } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setFormData((prevState) => (
             {
@@ -22,11 +29,28 @@ function Register() {
         ))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(password != password2){
+        if (password !== password2) {
             toast.error("Passwords don't match");
+        }
+        else {
+            const userData = {
+                name,
+                email,
+                password
+            }
+
+            try {
+                const res = await axios.post("/api/users", userData);
+                setUser(res.data);
+                navigate("/");
+
+            } catch (error) {
+                const message = error.response.data.message;
+                toast.error(message);
+            }
         }
     }
 
