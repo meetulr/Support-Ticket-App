@@ -5,13 +5,15 @@ import UserContext from "../contexts/user/userContext";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-
-    const { user, setUser } = useContext(UserContext);
+    const { user, dispatch } = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const onLogout = () => {
-        setUser(null);
+        dispatch({
+            type: "CLEAR_USER"
+        });
+
         navigate("/");
     }
 

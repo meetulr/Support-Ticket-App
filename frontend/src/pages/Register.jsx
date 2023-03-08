@@ -16,7 +16,7 @@ function Register() {
 
     const { name, email, password, password2 } = formData;
 
-    const { setUser } = useContext(UserContext);
+    const { loading, dispatch } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -43,8 +43,17 @@ function Register() {
             }
 
             try {
+                dispatch({
+                    type: "SET_LOADING"
+                });
+
                 const res = await axios.post("/api/users", userData);
-                setUser(res.data);
+                
+                dispatch({
+                    type: "SET_USER",
+                    payload: res.data
+                });
+
                 navigate("/");
 
             } catch (error) {
@@ -52,6 +61,10 @@ function Register() {
                 toast.error(message);
             }
         }
+    }
+
+    if(loading){
+        return <Spinner />;
     }
 
     return (
