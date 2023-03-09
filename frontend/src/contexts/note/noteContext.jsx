@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import noteReducer from "./noteReducer";
 
 const NoteContext = createContext();
@@ -10,10 +10,6 @@ export const NoteProvider = ({ children }) => {
     }
 
     const [state, dispatch] = useReducer(noteReducer, initialState);
-
-    useEffect(() => {
-        console.log(state);
-    }, [state])
 
     return <NoteContext.Provider value={{
         ...state,

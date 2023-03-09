@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer } from "react";
 import ticketReducer from "./ticketReducer";
 
 const TicketContext = createContext();
@@ -12,10 +12,6 @@ export const TicketProvider = ({ children }) => {
     }
 
     const [state, dispatch] = useReducer(ticketReducer, initialState);
-
-    useEffect(() => {
-        console.log(state);
-    }, [state])
 
     return <TicketContext.Provider value={{
         ...state,
