@@ -5,6 +5,11 @@ const userReducer = (state, action) => {
                 ...state,
                 loading: true
             }
+        case "STOP_LOADING":
+            return {
+                ...state,
+                loading: false
+            }
         case "SET_USER":
             return {
                 ...state,

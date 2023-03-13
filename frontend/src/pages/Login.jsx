@@ -52,6 +52,10 @@ function Login() {
         } catch (error) {
             const message = error.response.data.message;
             toast.error(message);
+
+            dispatch({
+                type: "STOP_LOADING"
+            })
         }
     }
 
