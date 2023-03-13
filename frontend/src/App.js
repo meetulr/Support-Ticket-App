@@ -3,8 +3,6 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "./contexts/user/userContext";
 import { TicketProvider } from "./contexts/ticket/ticketContext";
 import { NoteProvider } from "./contexts/note/noteContext";
@@ -12,6 +10,8 @@ import NewTicket from "./pages/NewTicket";
 import PrivateRoute from "./components/PrivateRoute";
 import Tickets from "./pages/Tickets";
 import Ticket from "./pages/Ticket";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (
