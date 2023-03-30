@@ -14,8 +14,6 @@ export const UserProvider = ({ children }) => {
     const [state, dispatch] = useReducer(userReducer, initialState);
 
     useEffect(() => {
-        console.log(state);
-
         if(state.user){
             localStorage.setItem("user", JSON.stringify(state.user));
         }
